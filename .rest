@@ -1,0 +1,35 @@
+@api = http://localhost:3000/api/v1
+
+GET {{api}} HTTP/1.1
+
+###
+
+POST {{api}}/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test",
+    "password": "test"
+}
+
+###
+
+
+POST {{api}}/auth/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test",
+    "password": "test"
+}
+
+###
+
+GET {{api}}/user/all HTTP/1.1
+
+###
+
+GET {{api}}/user/ HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMWNiZWIyY2U4NTc0MDY5ODEyMjI0ZiIsImlhdCI6MTY0NjA1MTE5MiwiZXhwIjoxNjQ2MTM3NTkyfQ.cyn3TYh0iAunnVWoI5xmaqVxnUoMtTstuYAO05e2lr4
+
+###

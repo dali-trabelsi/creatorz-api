@@ -11,10 +11,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://localhost:3000/api/v1",
       },
       {
-        url: "https://creatorz.herokuapp.com",
+        url: "https://creatorz.herokuapp.com/api/v1",
       },
     ],
   },

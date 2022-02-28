@@ -12,7 +12,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 /**
  * @swagger
- * /api/v1/:
+ * /:
  *  get:
  *    description: Root API endpoint
  *    responses:

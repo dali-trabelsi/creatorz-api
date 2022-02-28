@@ -6,9 +6,7 @@ var logger = require("morgan");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-
 var indexRouter = require("./routes/index.routes");
-
 require("./db/connect");
 
 var app = express();

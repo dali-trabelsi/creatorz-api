@@ -1,10 +1,25 @@
-@api = http://localhost:3000/api/v1
+@api = http://localhost:4545/api/v1
 
-GET {{api}} HTTP/1.1
+POST {{api}}/auth/admin/create HTTP/1.1
 
-###
+###  Signup learner
 
-POST {{api}}/auth/signup HTTP/1.1
+POST {{api}}/auth/learner/signup HTTP/1.1
+content-type: application/json
+
+{
+  "email": "test2",
+  "password": "test",
+  "fname": "test",
+  "lname": "test",
+  "dob": "10-10-2020",
+  "phone": "123456",
+  "address": "621ea4e2f1599df429dab11f"
+}
+
+###  Signin learner
+
+POST {{api}}/auth/learner/signin HTTP/1.1
 content-type: application/json
 
 {
@@ -12,10 +27,24 @@ content-type: application/json
     "password": "test"
 }
 
-###
+###  Signup Teacher
 
+POST {{api}}/auth/teacher/signup HTTP/1.1
+content-type: application/json
 
-POST {{api}}/auth/signin HTTP/1.1
+{
+  "email": "test",
+  "password": "test",
+  "fname": "test",
+  "lname": "test",
+  "dob": "10-10-2020",
+  "phone": "123456",
+  "address": "621ea4e2f1599df429dab11f"
+}
+
+###  Signin Teacher
+
+POST {{api}}/auth/teacher/signin HTTP/1.1
 content-type: application/json
 
 {
@@ -23,13 +52,51 @@ content-type: application/json
     "password": "test"
 }
 
-###
+###  Create Admin
 
-GET {{api}}/user/all HTTP/1.1
+POST {{api}}/auth/admin/create HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQG1haWwuY29tIiwiaWF0IjoxNjQ2MTgxMjQyLCJleHAiOjE2NDYyNjc2NDJ9.uFqjzQ3kTRUtfjfxRlSFQ_X2YeH0l8rsKawmNJMLB7U
 
-###
+{
+    "email": "super@mail.com",
+    "password": "super@password"
+}
 
-GET {{api}}/user/ HTTP/1.1
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMWNiZWIyY2U4NTc0MDY5ODEyMjI0ZiIsImlhdCI6MTY0NjA1MTE5MiwiZXhwIjoxNjQ2MTM3NTkyfQ.cyn3TYh0iAunnVWoI5xmaqVxnUoMtTstuYAO05e2lr4
+
+###  Signin Admin
+
+POST {{api}}/auth/admin/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email": "super@mail.com",
+    "password": "super@password"
+}
+
+###  Get List of learners
+
+GET {{api}}/learner/all HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFlYTRlMmYxNTk5ZGY0MjlkYWIxMWYiLCJpYXQiOjE2NDYxNzYyNDAsImV4cCI6MTY0NjI2MjY0MH0.lx5MLVGQDgxtHQfUbmIbS8vUMUEKFyMK_bPxhNRNdIc
+
+### Get learner info
+
+GET {{api}}/learner/info HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFlYTRlMmYxNTk5ZGY0MjlkYWIxMWYiLCJpYXQiOjE2NDYxNzYyNDAsImV4cCI6MTY0NjI2MjY0MH0.lx5MLVGQDgxtHQfUbmIbS8vUMUEKFyMK_bPxhNRNdIc
+
+### Get Teacher info
+
+GET {{api}}/teacher/info HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFlYzJiNzZjZTYzOWI0N2IyNmQyM2MiLCJpYXQiOjE2NDYyMjA2ODgsImV4cCI6MTY0NjMwNzA4OH0.MeTwAS775r5dv7fBelxGzVRJi4VoCRYlgIpn1ZzvGrk
+
+### Get Admin info
+
+GET {{api}}/admin/info HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFmNTYwMzI1NzdmZDYyMTk1NTlkZDkiLCJpYXQiOjE2NDYyMjE1MTksImV4cCI6MTY0NjMwNzkxOX0.ayMA3nVKX6HWh_uLC_PkHMlq0kDWrJEwGkXK23JI40Q
+
+### Get SuperAdmin info
+
+GET {{api}}/admin/super HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFmNTYwMzI1NzdmZDYyMTk1NTlkZDkiLCJpYXQiOjE2NDYyMjE1MTksImV4cCI6MTY0NjMwNzkxOX0.LheHkxKxPJZhN0U8L4Ynl1U_EYulB26eGH4hqdxpkvI
 
 ###

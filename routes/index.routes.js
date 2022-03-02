@@ -1,24 +1,15 @@
 const router = require("express").Router();
 require("../utils/swagger/config");
-const { swaggerUi, swaggerDocs } = require("../utils/swagger/config");
 const authRoutes = require("./auth.routes");
 const learnerRoutes = require("./learner.routes");
+const teacherRoutes = require("./teacher.routes");
+const adminRoutes = require("./admin.routes");
 
 router.use("/auth", authRoutes);
 router.use("/learner", learnerRoutes);
+router.use("/teacher", teacherRoutes);
+router.use("/admin", adminRoutes);
 
-// swagger docs
-router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-/**
- * @swagger
- * /:
- *  get:
- *    description: Root API endpoint
- *    responses:
- *      '200':
- *        description: Server is running
- */
 router.get("/", (req, res) => {
   res.sendStatus(200);
 });

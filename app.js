@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 var indexRouter = require("./routes/index.routes");
+const { swaggerUi, swaggerDocs } = require("./utils/swagger/config");
 require("./db/connect");
 
 var app = express();
@@ -19,6 +20,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // router
 app.use("/api/v1/", indexRouter);
+
+// swagger docs
+app.use("/api/v1/docs/en", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -207,12 +207,12 @@ const swaggerOptions = {
                   properties: {
                     email: {
                       type: "string",
-                      example: "foulen@fouleni",
+                      example: "super@mail.com",
                       required: true,
                     },
                     password: {
                       type: "string",
-                      example: "p1ssw0rd",
+                      example: "super@password",
                       required: true,
                     },
                   },

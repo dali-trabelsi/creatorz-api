@@ -11,7 +11,9 @@ const courseLessonSchema = new Schema(
     description: { type: String, required: true },
     thumbnail: { type: String, required: true },
     order: { type: Number, required: true },
-    quiz: [{ question: String, answer: String, distractors: [String] }],
+    quiz: [
+      { id: Number, question: String, answer: String, distractors: [String] },
+    ],
     elements: [{ type: ObjectId, required: true, ref: "CourseLessonElement" }],
   },
   { timestamps: true }

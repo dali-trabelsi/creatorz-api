@@ -12,7 +12,7 @@ const courseSchema = new Schema(
     description: { type: String, required: true },
     teacher: { type: ObjectId, required: true, ref: "Teacher" },
     sections: [{ type: ObjectId, required: true, ref: "CourseSection" }],
-    isPublished: { type: Boolean, required: true },
+    isPublished: { type: Boolean, default: false },
     publishedOn: { type: Boolean },
   },
   { timestamps: true }

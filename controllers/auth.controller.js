@@ -89,6 +89,24 @@ exports.adminSignin = (req, res) => {
     req.body.email === process.env.SUPER_ADMIN_LOGIN &&
     req.body.password === process.env.SUPER_ADMIN_PASSW
   ) {
+    const adminToken = jwt.sign(
+      { _id: req.body.email },
+      process.env.ADMIN_ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: 86400, // 24 hours
+      }
+    );
+    const superToken = jwt.sign(
+      { _id: req.body.email },
+      process.env.SUPER_ADMIN_ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: 86400, // 24 hours
+      }
+    );
+    return res.status(200).send({
+      accessToken: adminToken,
+      superAccessToken: superToken,
+    });
     return Admin.findOne({ email: req.body.email })
       .lean()
       .exec((err, admin) => {

@@ -9,4 +9,4 @@ const LESSON_ELEMENT_TYPE = {
   HTML_STR: "HTML_STR",
 };
 
-module.exports = { CHECKPOINT_TYPE };
+module.exports = { CHECKPOINT_TYPE, LESSON_ELEMENT_TYPE };

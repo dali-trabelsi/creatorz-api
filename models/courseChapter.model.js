@@ -12,8 +12,7 @@ const courseChapterSchema = new Schema(
     thumbnail: { type: String, required: true },
     order: { type: Number, required: true },
     lessons: [{ type: ObjectId, required: true, ref: "CourseLesson" }],
-    isCheckpoint: { type: Boolean, required: true },
-    checkpoint: { type: ObjectId, ref: "CourseCheckpoint" },
+    checkpoint: { type: ObjectId, ref: "CourseCheckpoint", default: undefined },
   },
   { timestamps: true }
 );

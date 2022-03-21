@@ -11,7 +11,7 @@ router.get(
 );
 
 router.put(
-  "/approveUser/:user/_id",
+  "/approve/:user/:_id",
   [authJwt.verifyAdminToken],
   controller.approveUser
 );

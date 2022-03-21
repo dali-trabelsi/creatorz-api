@@ -23,30 +23,35 @@ exports.approveUser = (req, res) => {
 
   if (user === "learner") {
     Learner.findById(_id)
-      .lean()
       .then(async (learner) => {
         if (!learner)
           return res
             .status(404)
             .send({ message: "Can't find user.", err: err.message });
+        if (learner.hasAdminApproval) {
+          return res.status(200).json({ message: "Already approved" });
+        }
         learner.hasAdminApproval = true;
+        console.log(learner);
         await learner.save();
-        return res.sendStatus(200);
+        return res.status(200).json({ message: "Learner approved" });
       })
       .catch((err) => {
         res.status(500).json({ message: err.message });
       });
   } else {
     Teacher.findById(_id)
-      .lean()
       .then(async (teacher) => {
         if (!teacher)
           return res
             .status(404)
             .send({ message: "Can't find user.", err: err.message });
+        if (teacher.hasAdminApproval) {
+          return res.status(200).json({ message: "Already approved" });
+        }
         teacher.hasAdminApproval = true;
         await teacher.save();
-        return res.sendStatus(200);
+        return res.status(200).json({ message: "Teacher approved" });
       })
       .catch((err) => {
         res.status(500).json({ message: err.message });

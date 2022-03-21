@@ -51,7 +51,7 @@ exports.leanerSignin = (req, res) => {
 
       if (!learner.hadAdminApproval) {
         return res.status(403).send({
-          accessToken: null,
+          _id: learner._id,
           message: "Wait for admin approval!",
         });
       }
@@ -203,7 +203,7 @@ exports.teacherSignin = (req, res) => {
 
       if (!teacher.hadAdminApproval) {
         return res.status(403).send({
-          accessToken: null,
+          _id: learner._id,
           message: "Wait for admin approval!",
         });
       }

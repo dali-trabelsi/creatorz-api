@@ -252,12 +252,12 @@ const swaggerOptions = {
                   properties: {
                     email: {
                       type: "string",
-                      example: "foulen@fouleni",
+                      example: "super@mail.com",
                       required: true,
                     },
                     password: {
                       type: "string",
-                      example: "p1ssw0rd",
+                      example: "super@password",
                       required: true,
                     },
                   },
@@ -266,6 +266,43 @@ const swaggerOptions = {
               },
             },
           },
+        },
+      },
+      "/admin/approve/{user}/{_id}": {
+        put: {
+          tags: ["auth"],
+          summary: "Approve user Accounts",
+          description: "Approve user Accounts",
+          operationId: "ApproveAccount",
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            200: {
+              description: "Successful operation",
+            },
+            403: {
+              description: "No token provided!",
+            },
+          },
+          parameters: [
+            {
+              in: "path",
+              name: "user",
+              schema: { type: String, required: true },
+              description: "type of user to approve",
+              default: "learner",
+            },
+            {
+              in: "path",
+              name: "_id",
+              schema: { type: String, required: true },
+              description: "id of user to be approved",
+              default: "",
+            },
+          ],
         },
       },
     },

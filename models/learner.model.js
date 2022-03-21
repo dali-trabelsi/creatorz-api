@@ -9,9 +9,18 @@ const learnerSchema = new Schema({
   lname: { type: String, required: true },
   dob: { type: Date, required: true },
   phone: { type: String, required: true },
-  address: { type: ObjectId, required: true, ref: "Address" },
+  address: {
+    type: {
+      country: { type: String, required: true },
+      city: { type: String, required: true },
+      street: { type: String },
+      postcode: { type: Number },
+    },
+    required: true,
+  },
   courseSubs: { type: [ObjectId], ref: "CourseSubscriptions" },
   rankings: { type: [ObjectId], ref: "LearnerRankings" },
+  hadAdminApproval: { type: Boolean, default: false },
 });
 
 module.exports = Learner = model("Learner", learnerSchema);

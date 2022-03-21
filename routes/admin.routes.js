@@ -10,4 +10,10 @@ router.get(
   controller.getProfileInfo
 );
 
+router.put(
+  "/approveUser/:user/_id",
+  [authJwt.verifyAdminToken],
+  controller.approveUser
+);
+
 module.exports = router;

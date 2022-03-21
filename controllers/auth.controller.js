@@ -6,6 +6,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.learnerSignup = (req, res) => {
+  console.log(req.body);
   const learner = new Learner({
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
@@ -45,6 +46,13 @@ exports.leanerSignin = (req, res) => {
         return res.status(401).send({
           accessToken: null,
           message: "Invalid Password!",
+        });
+      }
+
+      if (!learner.hadAdminApproval) {
+        return res.status(403).send({
+          accessToken: null,
+          message: "Wait for admin approval!",
         });
       }
 
@@ -107,71 +115,47 @@ exports.adminSignin = (req, res) => {
       accessToken: adminToken,
       superAccessToken: superToken,
     });
-    return Admin.findOne({ email: req.body.email })
+  } else {
+    Admin.findOne({
+      email: req.body.email,
+    })
       .lean()
-      .exec((err, admin) => {
+      .then((admin) => {
         if (!admin) {
-          return res.status(404).send({ message: "Admin Not found In DB." });
+          return res.status(404).send({ message: "Admin Not found." });
         }
-        const adminToken = jwt.sign(
+
+        var passwordIsValid = bcrypt.compareSync(
+          req.body.password,
+          admin.password
+        );
+
+        if (!passwordIsValid) {
+          return res.status(401).send({
+            accessToken: null,
+            message: "Invalid Password!",
+          });
+        }
+
+        var token = jwt.sign(
           { _id: admin._id },
           process.env.ADMIN_ACCESS_TOKEN_SECRET,
           {
             expiresIn: 86400, // 24 hours
           }
         );
-        const superToken = jwt.sign(
-          { _id: admin._id },
-          process.env.SUPER_ADMIN_ACCESS_TOKEN_SECRET,
-          {
-            expiresIn: 86400, // 24 hours
-          }
-        );
-        return res.status(200).send({
-          accessToken: adminToken,
-          superAccessToken: superToken,
+
+        res.status(200).send({
+          id: admin._id,
+          email: admin.email,
+          accessToken: token,
         });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({ message: err.message || err });
       });
   }
-  Admin.findOne({
-    email: req.body.email,
-  })
-    .lean()
-    .then((admin) => {
-      if (!admin) {
-        return res.status(404).send({ message: "Admin Not found." });
-      }
-
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        admin.password
-      );
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!",
-        });
-      }
-
-      var token = jwt.sign(
-        { _id: admin._id },
-        process.env.ADMIN_ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: 86400, // 24 hours
-        }
-      );
-
-      res.status(200).send({
-        id: admin._id,
-        email: admin.email,
-        accessToken: token,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({ message: err.message || err });
-    });
 };
 
 exports.teacherSignup = (req, res) => {
@@ -214,6 +198,13 @@ exports.teacherSignin = (req, res) => {
         return res.status(401).send({
           accessToken: null,
           message: "Invalid Password!",
+        });
+      }
+
+      if (!teacher.hadAdminApproval) {
+        return res.status(403).send({
+          accessToken: null,
+          message: "Wait for admin approval!",
         });
       }
 

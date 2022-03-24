@@ -341,8 +341,13 @@ const swaggerOptions = {
               required: true,
             },
             address: {
-              type: "string",
-              example: "621ea4e2f1599df429dab11f",
+              type: "object",
+              example: {
+                country: "Tunisia",
+                city: "Tunis",
+                street: "",
+                postcode: 5555,
+              },
               required: true,
             },
           },

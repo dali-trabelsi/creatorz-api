@@ -12,8 +12,7 @@ const verifyToken = (req, res, next, ROLE) => {
     token,
     process.env[ROLE + "_ACCESS_TOKEN_SECRET"],
     (err, decodedJWT) => {
-      console.log(decodedJWT);
-      res.locals._id = decodedJWT._id;
+      res.locals.decodedJWT = decodedJWT;
       if (err) {
         return res.status(401).send({ message: "Unauthorized!" });
       }
@@ -43,6 +42,7 @@ const authJwt = {
   verifyTeacherToken,
   verifyAdminToken,
   verifySuperAdminToken,
+  verifyToken,
 };
 
 module.exports = authJwt;

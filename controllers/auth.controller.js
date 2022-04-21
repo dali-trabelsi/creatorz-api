@@ -57,7 +57,7 @@ exports.leanerSignin = (req, res) => {
       }
 
       var token = jwt.sign(
-        { _id: learner._id },
+        { _id: learner._id, role: "LEARNER" },
         process.env.LEARNER_ACCESS_TOKEN_SECRET,
         {
           expiresIn: 86400, // 24 hours
@@ -98,14 +98,14 @@ exports.adminSignin = (req, res) => {
     req.body.password === process.env.SUPER_ADMIN_PASSW
   ) {
     const adminToken = jwt.sign(
-      { _id: req.body.email },
+      { _id: req.body.email, role: "ADMIN" },
       process.env.ADMIN_ACCESS_TOKEN_SECRET,
       {
         expiresIn: 86400, // 24 hours
       }
     );
     const superToken = jwt.sign(
-      { _id: req.body.email },
+      { _id: req.body.email, role: "SUPER_ADMIN" },
       process.env.SUPER_ADMIN_ACCESS_TOKEN_SECRET,
       {
         expiresIn: 86400, // 24 hours
@@ -138,7 +138,7 @@ exports.adminSignin = (req, res) => {
         }
 
         var token = jwt.sign(
-          { _id: admin._id },
+          { _id: admin._id, role: "ADMIN" },
           process.env.ADMIN_ACCESS_TOKEN_SECRET,
           {
             expiresIn: 86400, // 24 hours
@@ -180,6 +180,7 @@ exports.teacherSignup = (req, res) => {
 };
 
 exports.teacherSignin = (req, res) => {
+  console.log(req.body);
   Teacher.findOne({
     email: req.body.email,
   })
@@ -203,13 +204,13 @@ exports.teacherSignin = (req, res) => {
 
       if (!teacher.hadAdminApproval) {
         return res.status(403).send({
-          _id: learner._id,
+          _id: teacher._id,
           message: "Wait for admin approval!",
         });
       }
 
       var token = jwt.sign(
-        { _id: teacher._id },
+        { _id: teacher._id, role: "TEACHER" },
         process.env.TEACHER_ACCESS_TOKEN_SECRET,
         {
           expiresIn: 86400, // 24 hours
@@ -225,4 +226,8 @@ exports.teacherSignin = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message || err });
     });
+};
+
+exports.verifyToken = (req, res) => {
+  res.status(200).json(res.locals.decodedJWT);
 };

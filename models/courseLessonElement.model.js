@@ -6,7 +6,7 @@ const courseLessonElementSchema = new Schema(
   {
     type: {
       type: String,
-      enum: Object.values_id(LESSON_ELEMENT_TYPE),
+      enum: Object.values(LESSON_ELEMENT_TYPE),
       required: true,
     },
     content: { type: String, required: true },

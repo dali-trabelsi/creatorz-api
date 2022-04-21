@@ -14,7 +14,7 @@ router.post(
 
 router.get("/list/all", controller.getAll);
 
-router.get("/:course_id", controller.getAll);
+router.get("/:course_id", controller.getCourse);
 
 router.post(
   "/file-upload",

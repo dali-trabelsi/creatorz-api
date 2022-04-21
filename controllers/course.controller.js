@@ -23,3 +23,15 @@ exports.getAll = (req, res) => {
       res.status(500).json({ err: err.message });
     });
 };
+
+exports.getCourse = (req, res) => {
+  Course.findById(req.params.course_id)
+    .populate("teacher")
+    .lean()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ err: err.message });
+    });
+};

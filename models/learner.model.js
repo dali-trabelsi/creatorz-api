@@ -9,6 +9,7 @@ const learnerSchema = new Schema({
   lname: { type: String, required: true },
   dob: { type: Date, required: true },
   phone: { type: String, required: true },
+  avatar: String,
   address: {
     type: {
       country: { type: String, required: true },

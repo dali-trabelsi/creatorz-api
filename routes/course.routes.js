@@ -14,6 +14,8 @@ router.post(
 
 router.get("/list/all", controller.getAll);
 
+router.get("/list/teacher/:user_id", controller.getCoursesByTeacher);
+
 router.get("/:course_id", controller.getCourse);
 
 router.post(

@@ -6,12 +6,13 @@ const {
 
 const courseSectionSchema = new Schema(
   {
+    course: { type: ObjectId, required: true, ref: "Course" },
     title: { type: String, required: true },
-    thumbnail: { type: String, required: true },
-    overview: { type: String, required: true },
-    description: { type: String, required: true },
+    thumbnail: { type: String, required: false },
+    overview: { type: String, required: false },
+    description: { type: String, required: false },
     order: { type: Number, required: true },
-    chapters: [{ type: ObjectId, required: true, ref: "CourseChapter" }],
+    chapters: [{ type: ObjectId, required: false, ref: "CourseChapter" }],
   },
   { timestamps: true }
 );

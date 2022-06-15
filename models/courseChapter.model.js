@@ -6,6 +6,7 @@ const {
 
 const courseChapterSchema = new Schema(
   {
+    section: { type: ObjectId, required: true, ref: "CourseSection" },
     title: { type: String, required: true },
     overview: { type: String, required: true },
     description: { type: String, required: true },

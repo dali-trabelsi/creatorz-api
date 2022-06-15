@@ -6,6 +6,7 @@ const {
 
 const courseLessonSchema = new Schema(
   {
+    chapter: { type: ObjectId, required: true, ref: "CourseChapter" },
     title: { type: String, required: true },
     overview: { type: String, required: true },
     description: { type: String, required: true },
